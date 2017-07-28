@@ -46,6 +46,14 @@ func (s *Scan) Project(paths ...string) *Scan {
 	return s
 }
 
+// ProjectExpr projects the result attributes given an expression
+func (s *Scan) ProjectExpr(path string, args ...interface{}) *Scan {
+	expr, err := s.subExpr(path, args...)
+	s.setError(err)
+	s.projection = expr
+	return s
+}
+
 // Filter takes an expression that all results will be evaluated against.
 // Use single quotes to specificy reserved names inline (like 'Count').
 // Use the placeholder ? within the expression to substitute values, and use $ for names.
